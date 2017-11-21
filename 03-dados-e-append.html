@@ -21,17 +21,26 @@
       d3.select('.row') // .xpto == elemento da classe xpto
       .append('p')
       .text('Sou um parágrafo recém-criado!');
+
+      d3.select('.row')
+      .append('p')
+      .text('Novo páragrafo :o')      
     </script>
 
 <!-- PARTE 2: dados -->
-<!--     <script type="text/javascript">
+     <script type="text/javascript">
       var dados = [2, 3, 5, 7, 11, 13, 17];
       d3.select("#pros_dados") // #xpto == elemento com id xpto
         .selectAll("p")
       .data(dados)
       .enter()
         .append("p")
-        .text("Parágrafo criado a partir dos dados.") -->
+        .text((joaozinho) => {
+          return "Valor: " + joaozinho;
+        })
+        .style('font-size', (d) => {
+          return 8*d + "px";
+        })
     </script>
   </body>
 </html>
