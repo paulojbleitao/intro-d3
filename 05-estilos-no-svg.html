@@ -10,11 +10,49 @@
             stroke: orange;
             stroke-width: 6;
           }
+
+          .ceu {
+            fill: aquamarine;
+          }
+
+          .plantas {
+            fill: green;
+          }
+
+          .nuvem {
+            fill: white;
+          }
+
+          .madeira {
+            fill: burlywood;
+          }
+
+          .porta {
+            fill: goldenrod;
+          }
+
+          .telhado {
+            fill: brown;
+          }
         </style>
     </head>
     <body>
         <svg width="250" height="150">
+          <rect width="250" height="150" class="ceu" />
           <circle cy="50" cx="86" r="30" class="sol" />
+          <rect width="250" height="30" y="120" class="plantas" />
+          <circle cy="45" cx="190" r="15" class="nuvem" />
+          <circle cy="45" cx="180" r="15" class="nuvem" />
+          <circle cy="35" cx="190" r="15" class="nuvem" />
+          <circle cy="55" cx="190" r="15" class="nuvem" />
+          <circle cy="55" cx="205" r="15" class="nuvem" />
+          <circle cy="45" cx="215" r="15" class="nuvem" />
+          <circle cy="35" cx="205" r="15" class="nuvem" />
+          <rect width="60" height="50" x="150" y="85" class="madeira" />
+          <rect width="20" height="30" x="170" y="105" class="porta" />
+          <polygon points="150,85 210,85 180,45" class="telhado" />
+          <rect width="10" height="40" x="20" y="80" class="madeira" />
+          <circle cy="80" cx="25" r="20" class="plantas" />
         </svg>
     </body>
 </html>

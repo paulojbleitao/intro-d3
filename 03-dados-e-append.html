@@ -24,7 +24,7 @@
 
       d3.select('.row')
       .append('p')
-      .text('Novo páragrafo :o')      
+      .text('Novo páragrafo :o')
     </script>
 
 <!-- PARTE 2: dados -->
@@ -35,8 +35,8 @@
       .data(dados)
       .enter()
         .append("p")
-        .text((joaozinho) => {
-          return "Valor: " + joaozinho;
+        .text((valor) => {
+          return "Valor: " + valor;
         })
         .style('font-size', (d) => {
           return 8*d + "px";
