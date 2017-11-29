@@ -11,7 +11,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <h2>Barras com dados findos de uma url</h2>
+      <h2>Barras com dados vindos de uma url</h2>
     </div>
     <div class="row mychart" id="chart">
     </div>
@@ -36,15 +36,54 @@
     "use strict"
 
     function desenhaBarras(dados) {
-      // Preencha aqui.
+      var alturaSVG = 400, larguraSVG = 900;
+      var	margin = {top: 10, right: 20, bottom:30, left: 45},
+          larguraVis = larguraSVG - margin.left - margin.right,
+          alturaVis = alturaSVG - margin.top - margin.bottom;
+
+      var grafico = d3.select('#chart') 
+        .append('svg')
+          .attr('width', larguraVis + margin.left + margin.right)
+          .attr('height', alturaVis + margin.top + margin.bottom)
+        .append('g') 
+          .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+      var x = d3.scaleBand()
+                .domain(dados.map((d, i) => d.letra))
+                .rangeRound([0, larguraVis])
+                .padding(0.05); 
+
+      var y = d3.scaleLinear()
+                .domain([d3.max(dados, (d, i) => d.valor), 0])
+                .range([0, alturaVis]); 
+
+      grafico.selectAll('g')
+              .data(dados)
+              .enter()
+                .append('rect')
+                  .attr('x', d => x(d.letra))  
+                  .attr('width', x.bandwidth()) 
+                  .attr('y', d => y(d.valor))
+                  .attr('height', (d) => alturaVis - y(d.valor));
+
+      grafico.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + alturaVis + ")")
+              .call(d3.axisBottom(x));
+
+      grafico.append('g')
+              .attr('transform', 'translate(0,0)')
+              .call(d3.axisLeft(y))
+
+      grafico.append("text")
+        .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
+        .text("Frequencia");
     }
 
     d3.tsv('dados/alphabet.tsv', function(dados) {
       console.log("provavelmente acontece depois")
       desenhaBarras(dados);
     });
-
-    console.log("provavelmente acontece primeiro") // me apague quando entender.
 
     /*
     * Assim como a função d3.tsv, existe a d3.csv e a d3.json
