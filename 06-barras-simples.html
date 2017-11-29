@@ -20,8 +20,12 @@
         fill: steelblue;
       }
 
+      .mychart rect:hover {
+          fill:plum;
+      }
+
       .mychart text {
-        fill: white;
+        fill: black;
         font: 10px sans-serif;
         text-anchor: end;
       }
@@ -49,15 +53,41 @@
        * (Nem pense em fazer hardcoded :)).
        */
 
-      svg.selectAll('rect')
+      let dalton = 0,
+          jorge = 100,
+          joao = 1,
+          wilkerson = 15,
+          nazareno = 5;
+
+      svg.selectAll('g')
           .data(dados)
           .enter()
+            .append('g')
             .append('rect')
-              .attr('x', 0) // A função com dois parâmetros pode entrar aqui
-              .attr('y', 0) // e aqui
-              .attr('width', 30)
-              .attr('height', 20);
-
+              .attr('x', dalton) // A função com dois parâmetros pode entrar aqui
+              .attr('y', (d, i) => {
+                return (altura/dados.length) * i;
+              }) // e aqui
+              .attr('width', (d, i) => {
+                return (d/largura) * jorge;
+              })
+              .attr('height', (d, i) => {
+                return (altura/dados.length) - joao;
+              });
+        
+      svg.selectAll('g')
+          .data(dados)
+          .append('text')
+           .text((d) => {
+               return d;
+           })
+           .attr('x', (d, i) => {
+               return (d/largura) * jorge + wilkerson;
+           })
+           .attr('y', (d, i) => {
+                return (altura/dados.length) * i + (altura/dados.length - joao)/2 + nazareno;
+           })
+            
       /* Mais dicas :
        * - As barras ficam mais legíveis se não encostarem umas nas outras. Para isso
        * a maneira mais fácil é diminuir um pouco a largura delas (como elas estao deitadas,

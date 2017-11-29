@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>Barras verticais simples</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Um SVG dinâmico 2: agora na vertical</h2>
+      </div>
+        <div class="row mychart" id="chart">
+      </div>
+    </div>
+
+    <style>
+      .mychart rect {
+        fill: steelblue;
+      }
+
+      .mychart rect:hover {
+        fill: plum;
+      }
+
+      .mychart text {
+        fill: black;
+        font: 10px sans-serif;
+        text-anchor: end;
+      }
+    </style>
+
+    <script type="text/javascript">
+      "use strict"
+      let dados = [40, 80, 96, 76, 23, 42, 32, 90, 11, 22, 14];
+      let largura = 500,
+          altura = 200;
+
+      let svg = d3.select("#chart")
+                .append('svg')
+                .attr('width', largura)
+                .attr('height', altura);
+
+      let jorge = 100,
+        joao = 1,
+        dalton = 5;
+
+      svg.selectAll('g')
+         .data(dados)
+         .enter()
+          .append('g')
+          .append('rect')
+            .attr('x', (d, i) => {
+              return (largura/dados.length) * i;
+            })
+            .attr('y', (d, i) => {
+              return altura - ((d/altura) * jorge);
+            })
+            .attr('width', (d, i) => {
+              return (largura/dados.length) - joao;
+            })
+            .attr('height', (d, i) => {
+              return (d/altura) * jorge;
+            });
+
+      svg.selectAll('g')
+          .data(dados)
+          .append('text')
+           .text((d) => {
+             return d;
+           })
+           .attr('x', (d, i) => {
+             return (largura/dados.length) * i + (largura/dados.length - joao)/2 + dalton;
+           })
+           .attr('y', (d, i) => {
+             return altura - ((d/altura) * jorge) - dalton;
+           });
+    </script>
+  </body>
+</html>
